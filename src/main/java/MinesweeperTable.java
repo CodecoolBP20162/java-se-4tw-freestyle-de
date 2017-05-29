@@ -1,8 +1,11 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.Random;
 
+
 /**
- * Created by eszti on 2017.05.29..
+ * This file is responsible for creating the gamefield.
  */
 public class MinesweeperTable {
 
@@ -14,6 +17,12 @@ public class MinesweeperTable {
     ArrayList<Integer> available;
     int[][] minesCoordinates;
 
+    /**
+     * The constructor of the game
+     * @param row number of rows
+     * @param column number of columns
+     * @param mines number of mines
+     */
     public MinesweeperTable(int row, int column, int mines) {
         if ((row * column) < mines) {
             throw new IllegalArgumentException(
@@ -28,6 +37,9 @@ public class MinesweeperTable {
         minesCoordinates = new int[mines][2];
     }
 
+    /**
+     * Creates the table with empty fields only
+     */
     private void createEmptyFields() {
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
@@ -36,6 +48,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Creates all coordinates on the table
+     */
     private void generateAllCoordinates() {
         int counter = 0;
         for (int x = 0; x < row; x++) {
@@ -48,6 +63,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Creates an array with mine coordinates
+     */
     private void generateMinesCoordinates() {
         Random randomizer = new Random();
         for (int i = 0; i < mines; i++) {
@@ -58,6 +76,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Mixing fields with mines in an array
+     */
     private void createMines() {
         generateAllCoordinates();
         generateMinesCoordinates();
@@ -66,6 +87,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Reformat dots with 0 values
+     */
     private void replaceDotsWithZero(){
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
@@ -76,6 +100,11 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     *Increase cell value if a mine is nearby.
+     * @param x X coordinate of the field
+     * @param y Y coordinate of the field
+     */
     private void increaseValueOfCell(int x, int y){
         try {
             if (table[x][y] != '*') {
@@ -87,6 +116,9 @@ public class MinesweeperTable {
         catch (ArrayIndexOutOfBoundsException e){}
     }
 
+    /**
+     * Sets the value of every field
+     */
     private void replaceEmptyFieldsWithNums() {
         replaceDotsWithZero();
         for (int[] coordinates : minesCoordinates) {
@@ -99,6 +131,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Creates the table with the written methods as an array
+     */
     private void createTable() {
         table = new char[row][column];
         createEmptyFields();
@@ -106,6 +141,9 @@ public class MinesweeperTable {
         replaceEmptyFieldsWithNums();
     }
 
+    /**
+     * Prints out the table to the console
+     */
     private void printTable(){
         for (char[] row : table) {
             for (char cell : row) {
@@ -116,6 +154,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Runs the most important methods
+     */
     public void doit() {
         createTable();
         printTable();
