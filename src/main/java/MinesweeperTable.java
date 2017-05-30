@@ -43,7 +43,7 @@ public class MinesweeperTable {
     private void createEmptyFields() {
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
-                table[x][y] = '.';
+                table[x][y] = '0';
             }
         }
     }
@@ -88,19 +88,6 @@ public class MinesweeperTable {
     }
 
     /**
-     * Reformat dots with 0 values
-     */
-    private void replaceDotsWithZero(){
-        for (int x = 0; x < row; x++) {
-            for (int y = 0; y < column; y++) {
-                if (table[x][y] == '.') {
-                    table[x][y] = '0';
-                }
-            }
-        }
-    }
-
-    /**
      *Increase cell value if a mine is nearby.
      * @param x X coordinate of the field
      * @param y Y coordinate of the field
@@ -120,7 +107,6 @@ public class MinesweeperTable {
      * Sets the value of every field
      */
     private void replaceEmptyFieldsWithNums() {
-        replaceDotsWithZero();
         for (int[] coordinates : minesCoordinates) {
             for (int i = -1; i < 2; i++) {
                 for (int i2 = -1; i2 < 2; i2++) {
