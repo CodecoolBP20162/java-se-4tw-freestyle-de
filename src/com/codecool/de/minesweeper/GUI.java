@@ -1,3 +1,5 @@
+package com.codecool.de.minesweeper;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -43,6 +45,7 @@ public class GUI {
                                 lost.setHorizontalAlignment(SwingConstants.CENTER);
                                 lost.setVerticalAlignment(SwingConstants.CENTER);
                                 panel.add(lost);
+
                             }
                             else {
                                 label.setBackground(new Color(179, 195, 196));
@@ -52,6 +55,14 @@ public class GUI {
                     }
                 });
                 panel.add(label);
+            }
+        }
+    }
+
+    private void revealAll(Boolean isWinner) {
+        for (int x = 0; x < minesweeper.row; x++) {
+            for (int y = 0; y < minesweeper.column; y++) {
+                String value = Character.toString(minesweeper.table[x][y]);
             }
         }
     }

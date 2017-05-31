@@ -1,3 +1,5 @@
+package com.codecool.de.minesweeper;
+
 /**
  * Created by eszti on 2017.05.29..
  */

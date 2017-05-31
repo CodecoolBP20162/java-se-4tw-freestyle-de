@@ -1,3 +1,5 @@
+package com.codecool.de.minesweeper;
+
 import java.util.ArrayList;
 import java.util.Random;
 
