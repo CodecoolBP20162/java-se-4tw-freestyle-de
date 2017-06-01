@@ -5,9 +5,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-/**
- * Created by eszti on 2017.05.31..
- */
 public class GUI {
 
     JLabel[][] table;

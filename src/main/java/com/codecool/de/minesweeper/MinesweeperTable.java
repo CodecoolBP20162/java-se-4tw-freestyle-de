@@ -2,9 +2,6 @@ package com.codecool.de.minesweeper;
 
 import java.util.Random;
 
-/**
- * Created by eszti on 2017.05.24..
- */
 public class MinesweeperTable {
 
     int row;
