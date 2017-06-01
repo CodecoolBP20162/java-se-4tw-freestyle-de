@@ -2,6 +2,9 @@ package com.codecool.de.minesweeper;
 
 import java.util.Random;
 
+/**
+ * Responsible for the Minesweeper logic
+ */
 public class MinesweeperTable {
 
     int row;
@@ -9,6 +12,11 @@ public class MinesweeperTable {
     int mines;
     char[][] table;
 
+    /**
+     * @param row gets the number of rows
+     * @param column gets the number of columns
+     * @param mines gets the number of mines
+     */
     public MinesweeperTable(int row, int column, int mines) {
         if (row < 2 || column < 2) {
             throw new IllegalArgumentException(
@@ -25,6 +33,9 @@ public class MinesweeperTable {
         createTable();
     }
 
+    /**
+     * Creates the empty field array
+     */
     private void createEmptyFields() {
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
@@ -33,6 +44,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Give coordinates to the mines
+     */
     private void createMines() {
         Random random = new Random();
         int numOfGeneratedMines = 0;
@@ -46,6 +60,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Replaces zero tiles with spaces
+     */
     private void replaceZerosWithSpace() {
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
@@ -56,6 +73,11 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Increases the value of the neighbor cells of the mines
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     private void increaseValueOfNeighborCells(int x, int y) {
         for (int i = -1; i < 2; i++) {
             for (int i2 = -1; i2 < 2; i2++) {
@@ -71,6 +93,10 @@ public class MinesweeperTable {
         }
     }
 
+
+    /**
+     * Gets the coordinates of the mines and passes it to increaseValueOfNeighborCells() method
+     */
     private void createValidNumbers() {
         for (int x = 0; x < row; x++) {
             for (int y = 0; y < column; y++) {
@@ -81,6 +107,9 @@ public class MinesweeperTable {
         }
     }
 
+    /**
+     * Creates the tabels
+     */
     private void createTable() {
         createEmptyFields();
         createMines();
@@ -88,6 +117,9 @@ public class MinesweeperTable {
         replaceZerosWithSpace();
     }
 
+    /**
+     * Printing the table
+     */
     public void printTable() {
         for (char[] row : table) {
             for (char cell : row) {

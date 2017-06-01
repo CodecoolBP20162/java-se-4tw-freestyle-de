@@ -5,6 +5,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Responsible for the user interface
+ */
 public class GUI {
 
     JLabel[][] table;
@@ -18,12 +21,21 @@ public class GUI {
     String coveredSymbol = "ツ";
     String flagSymbol = "\uD83C\uDFF4";
 
+    /**
+     * Passing the table to the minesweeper GUI
+     * @param minesweeper Gets the minsweeper table
+     */
     public GUI(MinesweeperTable minesweeper) {
         this.minesweeper = minesweeper;
         infoPanel.setPreferredSize(new Dimension(minesweeper.column * 40, 40));
         table = new JLabel[minesweeper.row][minesweeper.column];
     }
 
+    /**
+     * Checks the cells label
+     * @param label Gets the label value
+     * @return Returns true or false if it is revealed
+     */
     private Boolean isCovered(JLabel label){
         if (label.getText().equals(coveredSymbol)){
             return true;
@@ -33,6 +45,11 @@ public class GUI {
         }
     }
 
+    /**
+     * Checks the cell if it is flagged
+     * @param label Gets the label value
+     * @return Returns true or false if it is flagged
+     */
     private Boolean isFlagged(JLabel label){
         if (label.getText().equals(flagSymbol)){
             return true;
@@ -42,6 +59,11 @@ public class GUI {
         }
     }
 
+    /**
+     * Checks the cell if it is mine
+     * @param value Gets the label value
+     * @return Returns true or false if it is a mine
+     */
     private Boolean isMine(String value){
         if (value.equals("*")){
             return true;
@@ -51,6 +73,11 @@ public class GUI {
         }
     }
 
+    /**
+     * Checks the cell if it is empty
+     * @param value Gets the label value
+     * @return Returns true or false if it is empty
+     */
     private Boolean isEmpty(String value){
         if (value.equals(" ")){
             return true;
@@ -60,6 +87,10 @@ public class GUI {
         }
     }
 
+    /**
+     * Checks tha gamestate, if a counter reaches a given limit the player wins
+     * @return Returns true or false about winning
+     */
     private Boolean isWinner() {
         int coveredCounter = 0;
         for (JLabel[] row : table) {
@@ -76,6 +107,9 @@ public class GUI {
         }
     }
 
+    /**
+     * Draws the layout for the game
+     */
     private void drawSpringLayoutForGamePanel() {
         SpringUtilities.makeCompactGrid(gamePanel,
                 minesweeper.row, minesweeper.column,
@@ -83,6 +117,9 @@ public class GUI {
                 0, 0);
     }
 
+    /**
+     * On click restarts the game
+     */
     private void restartGameAction() {
         MinesweeperTable newMinesweeper = new MinesweeperTable(
                 minesweeper.row, minesweeper.column, minesweeper.mines);
@@ -97,6 +134,9 @@ public class GUI {
         masterPanel.updateUI();
     }
 
+    /**
+     * Restarts info parts on the top of the GUI
+     */
     private void setInfoAndRestartPosition() {
         Dimension infoSize = info.getPreferredSize();
         info.setBounds(10, (40 - infoSize.height) / 2, infoSize.width, infoSize.height);
@@ -108,6 +148,9 @@ public class GUI {
         infoPanel.add(restart);
     }
 
+    /**
+     * Draws the panel info
+     */
     private void drawInfoPanel() {
         info.setText("ᕙ(⇀‸↼‶)ᕗ");
         info.setForeground(new Color(179, 195, 196));
@@ -119,6 +162,9 @@ public class GUI {
         setInfoAndRestartPosition();
     }
 
+    /**
+     * Draws loose message and reveals table
+     */
     private void lostGameAction() {
         info.setText("You lose. Fuuuu- (╯°□°）╯︵ ┻━┻");
         Dimension infoSize = info.getPreferredSize();
@@ -126,6 +172,9 @@ public class GUI {
         revealAll(false);
     }
 
+    /**
+     * Draws win message and reveals table
+     */
     private void wonGameAction() {
         info.setText("You win. Yeaaaaa ヾ(⌐■_■)ノ♪");
         Dimension infoSize = info.getPreferredSize();
@@ -133,6 +182,10 @@ public class GUI {
         revealAll(true);
     }
 
+    /**
+     * Sets the properties for the cells
+     * @param label Gets the label value
+     */
     private void setBasicTableCellProperties(JLabel label) {
         label.setPreferredSize(new Dimension(40, 40));
         label.setOpaque(true);
@@ -142,6 +195,13 @@ public class GUI {
         label.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
+    /**
+     * Sets the action on the cell
+     * @param label Gets the label value
+     * @param value Value of the field
+     * @param row x coordinate
+     * @param column y coordinate
+     */
     private void setTableCellAction(JLabel label, String value, int row, int column){
         label.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -176,6 +236,9 @@ public class GUI {
         });
     }
 
+    /**
+     * Draws gamepanel
+     */
     private void drawGamePanel() {
         for (int x = 0; x < minesweeper.row; x++) {
             JLabel[] labelList = new JLabel[minesweeper.column];
@@ -193,6 +256,10 @@ public class GUI {
         }
     }
 
+    /**
+     * Reveals all cells
+     * @param isWinner Gets win state
+     */
     private void revealAll(Boolean isWinner) {
         for (int x = 0; x < minesweeper.row; x++) {
             for (int y = 0; y < minesweeper.column; y++) {
@@ -208,6 +275,11 @@ public class GUI {
         }
     }
 
+    /**
+     * Reveals empty cells
+     * @param x x coordinates
+     * @param y y coordinates
+     */
     private void revealEmptyCells(int x, int y) {
         for (int i = -1; i < 2; i++) {
             for (int i2 = -1; i2 < 2; i2++) {
@@ -227,6 +299,9 @@ public class GUI {
         }
     }
 
+    /**
+     * Sets the position of the window on the screen
+     */
     private void setFramePos() {
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension dim = tk.getScreenSize();
@@ -235,6 +310,9 @@ public class GUI {
         frame.setLocation(xPos, yPos);
     }
 
+    /**
+     * Shows the panel
+     */
     public void show() {
         drawInfoPanel();
         drawGamePanel();
