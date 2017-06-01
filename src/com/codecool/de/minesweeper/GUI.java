@@ -11,21 +11,25 @@ import java.awt.event.*;
 public class GUI {
 
     JLabel[][] table;
-    Minesweeper minesweeper;
+    MinesweeperTable minesweeper;
     JPanel gamePanel;
     JPanel infoPanel;
     JPanel masterPanel;
     JFrame frame;
     JLabel info;
     JButton restart;
+    String coveredSymbol;
+    String flagSymbol;
 
-    public GUI(Minesweeper minesweeper) {
+    public GUI(MinesweeperTable minesweeper) {
         this.minesweeper = minesweeper;
         this.gamePanel = new JPanel(new SpringLayout());
         this.infoPanel = new JPanel(null);
         infoPanel.setPreferredSize(new Dimension(minesweeper.column * 40, 40));
         this.frame = new JFrame("DE! Minesweeper");
         table = new JLabel[minesweeper.row][minesweeper.column];
+        this.coveredSymbol = "";
+        this.flagSymbol = "\uD83C\uDFF4";
     }
 
     private void drawInfoPanel() {
@@ -35,9 +39,9 @@ public class GUI {
         restart = new JButton("Restart");
         restart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Minesweeper newMinesweeper = new Minesweeper(minesweeper.row, minesweeper.column, minesweeper.mines);
+                MinesweeperTable newMinesweeper = new MinesweeperTable(
+                        minesweeper.row, minesweeper.column, minesweeper.mines);
                 minesweeper = newMinesweeper;
-                minesweeper.doit();
                 gamePanel.removeAll();
                 drawGamePanel();
                 SpringUtilities.makeCompactGrid(gamePanel,
@@ -67,7 +71,7 @@ public class GUI {
             JLabel[] labelList = new JLabel[minesweeper.column];
             for (int y = 0; y < minesweeper.column; y++) {
                 String value = Character.toString(minesweeper.table[x][y]);
-                JLabel label = new JLabel("ツ");
+                JLabel label = new JLabel(coveredSymbol);
                 int row = x;
                 int column = y;
                 label.setPreferredSize(new Dimension(40, 40));
@@ -79,8 +83,8 @@ public class GUI {
                 label.addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
                         if (SwingUtilities.isLeftMouseButton(e)) {
-                            if (label.getText().equals("\uD83C\uDFF4")){
-                                label.setText("ツ");
+                            if (label.getText().equals(flagSymbol)){
+                                label.setText(coveredSymbol);
                                 label.setBackground(new Color(127, 140, 141));
                             }
                             else {
@@ -108,8 +112,8 @@ public class GUI {
                             }
                         }
                         if (SwingUtilities.isRightMouseButton(e)) {
-                            if (label.getText().equals("ツ")){
-                                label.setText("\uD83C\uDFF4");
+                            if (label.getText().equals(coveredSymbol)){
+                                label.setText(flagSymbol);
                                 label.setBackground(new Color(230, 126, 34));
                             }
                         }
@@ -142,7 +146,7 @@ public class GUI {
             for (int i2 = -1; i2 < 2; i2++) {
                 try {
                     JLabel label = table[x + i][y + i2];
-                    if (label.getText().equals("ツ")) {
+                    if (label.getText().equals(coveredSymbol)) {
                         String value = Character.toString(minesweeper.table[x + i][y + i2]);
                         label.setText(value);
                         label.setBackground(new Color(179, 195, 196));
@@ -160,7 +164,8 @@ public class GUI {
         int coveredCounter = 0;
         for (JLabel[] row : table) {
             for (JLabel label : row) {
-                if (label.getText().equals("ツ") || label.getText().equals("\uD83C\uDFF4")) {
+                if (label.getText().equals(coveredSymbol) ||
+                        label.getText().equals(flagSymbol)) {
                     coveredCounter++;
                 }
             }

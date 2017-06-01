@@ -1,8 +1,5 @@
 package com.codecool.de.minesweeper;
 
-/**
- * Created by eszti on 2017.05.29..
- */
 public class Main {
 
     public static void main(String[] args) {
@@ -10,8 +7,8 @@ public class Main {
         int column = 15;
         int mines = row * column / 5;
 
-        Minesweeper minesweeper = new Minesweeper(row, column, mines);
-        minesweeper.doit();
+        MinesweeperTable minesweeper = new MinesweeperTable(row, column, mines);
+        minesweeper.printTable();
         GUI gui = new GUI(minesweeper);
         gui.show();
     }
