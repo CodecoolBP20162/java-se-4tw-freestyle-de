@@ -1,6 +1,8 @@
 package com.codecool.de.minesweeper;
 
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Responsible for creating the Minesweeper table
@@ -11,6 +13,7 @@ public class MinesweeperTable {
     int column;
     int mines;
     char[][] table;
+    private static final Logger logger = LoggerFactory.getLogger(MinesweeperTable.class);
 
     /**
      * @param row gets the number of rows
@@ -19,23 +22,28 @@ public class MinesweeperTable {
      */
     public MinesweeperTable(int row, int column, int mines) {
         if (row < 2 || column < 2) {
+            logger.error("The numbers of rows and columns have to be minimum 2!");
             throw new IllegalArgumentException(
                     "The numbers of rows and columns have to be minimum 2!");
         }
         if ((row * column) < mines) {
+            logger.error("Num of mines cannot be larger than row * column!");
             throw new IllegalArgumentException(
                     "Num of mines cannot be larger than row * column!");
         }
         if (mines < 1) {
+            logger.error("Num of mines must be at least 1");
             throw new IllegalArgumentException(
-                    "Num of mines must be at least 1"
-            );
+                    "Num of mines must be at least 1");
         }
         this.row = row;
         this.column = column;
         this.mines = mines;
         table = new char[row][column];
         createTable();
+        logger.info(String.format(
+                "Minesweeper table created with %1$d rows, %2$d columns, and %3$d mines.",
+                row, column, mines));
     }
 
     /**
