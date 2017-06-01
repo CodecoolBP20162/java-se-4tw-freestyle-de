@@ -78,28 +78,40 @@ public class GUI {
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 label.addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
-                        if (e.getClickCount() == 1) {
-                            label.setText(value);
-                            if (value.equals("*")) {
-                                label.setBackground(new Color(231, 76, 60));
-                                info.setText("You lose. Fuuuu- (╯°□°）╯︵ ┻━┻");
-                                Dimension infoSize = info.getPreferredSize();
-                                info.setBounds(10, (40 - infoSize.height) / 2, infoSize.width, infoSize.height);
-                                revealAll(false);
-                            } else {
-                                label.setBackground(new Color(179, 195, 196));
-                                if (label.getText().equals(" ")) {
-                                    revealGroup(row, column);
-                                }
-                                if (isWinner()) {
-                                    info.setText("You win. Yeaaaaa ヾ(⌐■_■)ノ♪");
+                        if (SwingUtilities.isLeftMouseButton(e)) {
+                            if (label.getText().equals("\uD83C\uDFF4")){
+                                label.setText("ツ");
+                                label.setBackground(new Color(127, 140, 141));
+                            }
+                            else {
+                                label.setText(value);
+                                if (value.equals("*")) {
+                                    label.setBackground(new Color(231, 76, 60));
+                                    info.setText("You lose. Fuuuu- (╯°□°）╯︵ ┻━┻");
                                     Dimension infoSize = info.getPreferredSize();
                                     info.setBounds(10, (40 - infoSize.height) / 2, infoSize.width, infoSize.height);
-                                    revealAll(true);
-                                }
+                                    revealAll(false);
+                                } else {
+                                    label.setBackground(new Color(179, 195, 196));
+                                    if (label.getText().equals(" ")) {
+                                        revealGroup(row, column);
+                                    }
+                                    if (isWinner()) {
+                                        info.setText("You win. Yeaaaaa ヾ(⌐■_■)ノ♪");
+                                        Dimension infoSize = info.getPreferredSize();
+                                        info.setBounds(10, (40 - infoSize.height) / 2, infoSize.width, infoSize.height);
+                                        revealAll(true);
+                                    }
 
+                                }
+                                label.setOpaque(true);
                             }
-                            label.setOpaque(true);
+                        }
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            if (label.getText().equals("ツ")){
+                                label.setText("\uD83C\uDFF4");
+                                label.setBackground(new Color(230, 126, 34));
+                            }
                         }
                     }
                 });
@@ -141,7 +153,6 @@ public class GUI {
                 } catch (ArrayIndexOutOfBoundsException e) {
                 }
             }
-
         }
     }
 
@@ -149,7 +160,7 @@ public class GUI {
         int coveredCounter = 0;
         for (JLabel[] row : table) {
             for (JLabel label : row) {
-                if (label.getText().equals("ツ")) {
+                if (label.getText().equals("ツ") || label.getText().equals("\uD83C\uDFF4")) {
                     coveredCounter++;
                 }
             }
@@ -189,6 +200,7 @@ public class GUI {
         frame.setVisible(true);
         frame.setContentPane(masterPanel);
         frame.pack();
+        frame.setResizable(false);
 
         setFramePos();
     }
