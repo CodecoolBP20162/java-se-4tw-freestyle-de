@@ -26,6 +26,11 @@ public class MinesweeperTable {
             throw new IllegalArgumentException(
                     "Num of mines cannot be larger than row * column!");
         }
+        if (mines < 1) {
+            throw new IllegalArgumentException(
+                    "Num of mines must be at least 1"
+            );
+        }
         this.row = row;
         this.column = column;
         this.mines = mines;
