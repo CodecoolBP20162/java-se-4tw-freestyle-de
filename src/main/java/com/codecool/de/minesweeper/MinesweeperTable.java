@@ -3,7 +3,7 @@ package com.codecool.de.minesweeper;
 import java.util.Random;
 
 /**
- * Responsible for the Minesweeper logic
+ * Responsible for creating the Minesweeper table
  */
 public class MinesweeperTable {
 

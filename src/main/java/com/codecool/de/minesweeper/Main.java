@@ -11,7 +11,6 @@ public class Main {
         int mines = row * column / 5;
 
         MinesweeperTable minesweeper = new MinesweeperTable(row, column, mines);
-        minesweeper.printTable();
         GUI gui = new GUI(minesweeper);
         gui.show();
     }
