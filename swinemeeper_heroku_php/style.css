@@ -1,0 +1,105 @@
+body {
+    background: linear-gradient(270deg, #246655, #848987, #13c6a0);
+    background-size: 600% 600%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+.swine {
+    text-align: center;
+}
+
+.swine p {
+    font-size: 32px;
+}
+
+.main-block {
+    width: 100%;
+    height: 1000px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.linktogame {
+    padding-top: 50px;
+    font-size: 60px;
+    text-align: center;
+}
+
+a {
+    animation-duration: 400ms;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+        color: pink;
+    }
+    25% {
+        color: green;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        color: blue;
+    }
+    75% {
+        opacity: 0;
+        color: orange;
+    }
+    100% {
+        opacity: 1;
+        color: pink;
+    }
+}
