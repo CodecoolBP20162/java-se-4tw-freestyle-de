@@ -53,7 +53,7 @@ public class SpringUtilities {
      * Aligns the first <code>rows</code> * <code>cols</code>
      * components of <code>parent</code> in
      * a grid. Each component is as big as the maximum
-     * preferred width and height of the components.
+     * preferred panelWidth and panelHeight of the components.
      * The parent is made just big enough to fit them all.
      *
      * @param rows     number of rows
@@ -81,7 +81,7 @@ public class SpringUtilities {
         Spring initialYSpring = Spring.constant(initialY);
         int max = rows * cols;
 
-        //Calculate Springs that are the max of the width/height so that all
+        //Calculate Springs that are the max of the panelWidth/panelHeight so that all
         //cells have the same size.
         Spring maxWidthSpring = layout.getConstraints(parent.getComponent(0)).
                 getWidth();
@@ -95,7 +95,7 @@ public class SpringUtilities {
             maxHeightSpring = Spring.max(maxHeightSpring, cons.getHeight());
         }
 
-        //Apply the new width/height Spring. This forces all the
+        //Apply the new panelWidth/panelHeight Spring. This forces all the
         //components to have the same size.
         for (int i = 0; i < max; i++) {
             SpringLayout.Constraints cons = layout.getConstraints(
@@ -155,8 +155,8 @@ public class SpringUtilities {
      * Aligns the first <code>rows</code> * <code>cols</code>
      * components of <code>parent</code> in
      * a grid. Each component in a column is as wide as the maximum
-     * preferred width of the components in that column;
-     * height is similarly determined for each row.
+     * preferred panelWidth of the components in that column;
+     * panelHeight is similarly determined for each row.
      * The parent is made just big enough to fit them all.
      *
      * @param rows     number of rows
@@ -178,7 +178,7 @@ public class SpringUtilities {
             return;
         }
 
-        //Align all cells in each column and make them the same width.
+        //Align all cells in each column and make them the same panelWidth.
         Spring x = Spring.constant(initialX);
         for (int c = 0; c < cols; c++) {
             Spring width = Spring.constant(0);
@@ -196,7 +196,7 @@ public class SpringUtilities {
             x = Spring.sum(x, Spring.sum(width, Spring.constant(xPad)));
         }
 
-        //Align all cells in each row and make them the same height.
+        //Align all cells in each row and make them the same panelHeight.
         Spring y = Spring.constant(initialY);
         for (int r = 0; r < rows; r++) {
             Spring height = Spring.constant(0);
